@@ -5,7 +5,8 @@
 		<%= @blog_post.title %>
 	</div>
 	<div class="panel-body">
-		by <strong><%=  @blog_post.author %></strong> <span class="posted-at">posted at: <%= @blog_post.create_at.strftime('%m/%d%y at %I:%M%p') %></span><br />
+		<div class="panel-body">
+  	by <strong><%= @blog_post.user.email %></strong>strftime('%m/%d/%Y at %I:%M%p') %></span><br />
 		<p><%= @blog_post.blog_entry %></p>	
 	<div>
 </div>
@@ -19,22 +20,24 @@
 		<%= render 'comments/form' %>
 	</div>
 </div>
+<%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
+	<%= link_to 'Back', blog_posts_path %>
 
 <div>
-	<%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
-	<%= link_to 'Back', blog_posts_path %>
-</div>
-
-<div class="panel panel-default">
+div class="panel panel-default">
 	<div class="panel-header">
 		<h4>Comments</h4>
 	</div>
 	<% @blog_post.comments.each do |comment| %>
 		<div class="panel-body">
-			<p><strong><%= comment.author %></strong> said: </p>
+			<h2>Comments</h2>
+			<% @blog_post.comments.each do |comment| %>
+  				<div class="panel panel-success">
+    				<div class="panel-body">
+     					 <p><strong><%= comment.user.email %></strong> said:</p>
 			<p><%= comment.comment_entry %></p>
 			<p><span class="posted-at"><%= comment.created_at.strftime
-				('%m/%d/%y %H:%M:%S') %></span>span></p>
-	</div>
-	<%end%>
+				('%m/%d/%Y %H:%M:%S') %></span>span></p>
+	</div>				
 </div>	
+<%end%>
